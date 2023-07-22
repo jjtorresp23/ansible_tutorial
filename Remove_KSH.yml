@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Remove the KSH package
+    ansible.builtin.yum:
+      name: ksh
+      state: absent
