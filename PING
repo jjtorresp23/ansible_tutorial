@@ -1,0 +1,1 @@
+ansible all --key-file ~/.ssh/id_ed25519 -i inventory -m ping

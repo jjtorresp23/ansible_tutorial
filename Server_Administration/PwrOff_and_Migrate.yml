@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+          
+  - name: Powering Off Server on current DC..
+    shell: "sync && poweroff"
+
+    async: 1
+    poll: 0
+
+  - name: Wait for the machine to come back online on DR DC..
+    wait_for_connection:
+      connect_timeout: 30
+      sleep: 5
+      delay: 9
+      timeout: 900

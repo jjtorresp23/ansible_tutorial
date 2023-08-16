@@ -1,0 +1,9 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Change user password
+      user:
+        name: root
+        password: "WE3omkGjnS5wEDJA"

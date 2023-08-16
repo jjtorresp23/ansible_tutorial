@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Install needed packages for AD Integration with REALM
+    ansible.builtin.yum:
+      name:
+      realmd,sssd
+      state: latest

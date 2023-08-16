@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Install needed packages for AD Integration with REALM
+    ansible.builtin.yum:
+      name:
+        realmd,sssd,oddjob,oddjob-mkhomedir,adcli,samba-common,samba-common-tools,krb5-workstation,authselect-compat
+      state: latest
