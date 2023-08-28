@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Installing Net-Tools package
+    ansible.builtin.yum:
+      name: net-tools
+      state: latest

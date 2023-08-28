@@ -1,0 +1,24 @@
+---
+
+- name: Setting sudo permissions to switch to appadmin abd setting appadmin as Admin Account..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Updating "appadmin" Permissions...
+    copy:
+      src: /home/svcans/ansible_tutorial/GTM/sudo-config-Appadmin
+      dest: /etc/sudoers.d/sudo-config-Appadmin
+      owner: root
+      group: root
+      mode: 0600
+      remote_src: false
+
+  - name: Updating krb5.conf File...
+    copy:
+      src: /home/svcans/ansible_tutorial/GTM/appadmin-users-access
+      dest: /etc/sudoers.d/appadmin-users-access
+      owner: root
+      group: root
+      mode: 0600
+      remote_src: false

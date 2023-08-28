@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Install LVM packages
+    ansible.builtin.yum:
+      name: lvm*
+      state: latest

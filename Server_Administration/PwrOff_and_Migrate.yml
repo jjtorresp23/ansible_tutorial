@@ -15,4 +15,4 @@
       connect_timeout: 30
       sleep: 5
       delay: 9
-      timeout: 900
+      timeout: 1800

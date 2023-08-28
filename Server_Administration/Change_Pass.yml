@@ -6,4 +6,4 @@
     - name: Change user password
       user:
         name: root
-        password: "WE3omkGjnS5wEDJA"
+        password: "$6$aic9q8/98t.xu3oS$FjFknEljczqFyJEI6uUJmbZXxgRlpnrPIOp4Zgl30TG52EgN1uZ7FoRNqA62FZ0pT09H7v.rWax9456MPVAsk0"

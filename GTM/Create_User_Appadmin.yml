@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+          
+  - name: Add the user 'appadmin' for GTM Applications.
+    ansible.builtin.user:
+      name: appadmin
+      comment: Application User, Resp. H.De Labastida
+      uid: 1951
+      group: appadmin

@@ -1,0 +1,28 @@
+---
+
+- name: Updating Config Files for Login with Tradesphere Credentials
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Updating sssd.conf File...
+    copy:
+      src: /home/svcans/ansible_tutorial/TRADESPHERE-etc-sssd.conf
+      dest: /etc/sssd/sssd.conf
+      owner: root
+      group: root
+      mode: 0600
+      remote_src: false
+
+  - name: Updating krb5.conf File...
+    template:
+      src: /home/svcans/ansible_tutorial/TRADESPHERE-etc-krb5.conf
+      dest: /etc/krb5.conf
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Restarting SSSD Service...
+    shell:
+         "/usr/bin/systemctl restart sssd"

@@ -1,0 +1,25 @@
+User_Alias ADMINS = appadmin, guereca, vvergara
+
+ADMINS  ALL=(ALL)  NOPASSWD:GENERAL, NETWORKING, SOFTWARE, SERVICES, LOCATE, STORAGE, DELEGATING, PROCESSES
+
+Cmnd_Alias GENERAL = /bin/mkdir, /sbin/sestatus, /bin/which, /bin/whereis, /bin/wget, /bin/unzip, /bin/top, /bin/tar, /bin/tail, /bin/rm, /bin/cd, /bin/rmdir, /bin/ps, /bin/ping, /bin/id, /bin/fg, /bin/find, /bin/chmod, /bin/chown, /bin/yum
+
+Cmnd_Alias NETWORKING = /sbin/route, /sbin/ifconfig, /bin/ping, /sbin/dhclient, /usr/bin/net, /sbin/iptables, /usr/bin/rfcomm, /usr/bin/wvdial, /sbin/iwconfig, /sbin/mii-tool
+
+## Installation and management of software
+Cmnd_Alias SOFTWARE = /bin/rpm, /usr/bin/up2date, /usr/bin/yum
+#
+### Services
+Cmnd_Alias SERVICES = /bin/systemctl, /sbin/service, /sbin/chkconfig, /usr/bin/systemctl
+#
+### Updating the locate database
+Cmnd_Alias LOCATE = /usr/bin/updatedb
+#
+### Storage
+Cmnd_Alias STORAGE = /sbin/fdisk, /sbin/sfdisk, /sbin/parted, /sbin/partprobe, /bin/mount, /bin/umount
+#
+# ## Delegating permissions
+Cmnd_Alias DELEGATING = /usr/sbin/visudo, /bin/chown, /bin/chmod, /bin/chgrp, /bin/su
+#
+# ## Processes
+Cmnd_Alias PROCESSES = /bin/nice, /bin/kill, /usr/bin/kill, /usr/bin/killall
