@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Install MAIL package
+    ansible.builtin.yum:
+      name: sendmail,m4,mailx
+      state: latest

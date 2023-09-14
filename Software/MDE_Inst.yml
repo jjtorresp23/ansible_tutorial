@@ -19,7 +19,8 @@
 
     - name: Adding Microsoft Repository...
       shell:
-           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/9/prod.repo"
+           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/8/prod.repo"
+#           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/9/prod.repo"
       args:
         warn: false
 

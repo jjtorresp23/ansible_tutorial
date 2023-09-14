@@ -1,0 +1,36 @@
+---
+
+- name: Installing SSM..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading SSM Package....
+    copy:
+      src: /home/svcans/SW/SSM/amazon-ssm-agent.rpm
+      dest: /tmp/amazon-ssm-agent.rpm
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Installing SSM...
+    shell:
+         "yum install -y /tmp/amazon-ssm-agent.rpm"
+
+  - name: Stopping SSM Service..
+    shell:
+         "systemctl stop amazon-ssm-agent"
+
+  - name: Registeiring Instance on SSM Console...
+    shell:
+         "eccho 'yes' |sudo -E amazon-ssm-agent -register -code '1GlCA0yeA0/L9xEvngf5' -id 'aaf14bac-9334-41d6-a8f1-e3e4bb46c9d1' -region 'us-east-1'"
+
+  - name: Starting SSM...
+    shell:
+         "systemctl start amazon-ssm-agent"
+
+  - name: Removing Temporary Files..
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/amazon-ssm-agent.rpm

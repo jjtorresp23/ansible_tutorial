@@ -1,0 +1,23 @@
+---
+
+- name: Updating /etc/resolv.conf with DEV.LIIAWS.NET
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Opening Permissions...
+    shell:
+         "chattr -i /etc/resolv.conf"
+
+  - name: Updating resolv.conf File...
+    copy:
+      src: /home/svcans/ansible_tutorial/DEV.LIIAWS.NET/DNS.dev.liiaws.net_OnPrem.conf
+      dest: /etc/resolv.conf
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Removing Permissions...
+    shell:
+         "chattr +i /etc/resolv.conf"

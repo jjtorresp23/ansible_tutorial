@@ -14,7 +14,7 @@
       mode: 0600
       remote_src: false
 
-  - name: Updating krb5.conf File...
+  - name: Updating appadmin-users-access...
     copy:
       src: /home/svcans/ansible_tutorial/GTM/appadmin-users-access
       dest: /etc/sudoers.d/appadmin-users-access

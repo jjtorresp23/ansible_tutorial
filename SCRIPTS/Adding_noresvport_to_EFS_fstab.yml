@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Replacing word in /etc/fstab..
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/add_noresvport_fstab.sh

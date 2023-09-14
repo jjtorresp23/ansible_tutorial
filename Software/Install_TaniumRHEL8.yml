@@ -1,0 +1,41 @@
+---
+
+- name: Installing Tanium..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading Tanium Package....
+    copy:
+      src: /home/svcans/SW/Tanium/TaniumClient-7.4.9.1077-1.rhe8.x86_64.rpm
+      dest: /tmp/TaniumClient-7.4.9.1077-1.rhe8.x86_64.rpm
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Installing Tanium...
+    shell:
+         "rpm -ivh /tmp/TaniumClient-7.4.9.1077-1.rhe8.x86_64.rpm"
+
+  - name: Copying Tanium-init.dat to the server...
+    copy:
+      src: /home/svcans/SW/Tanium/tanium-init.dat
+      dest: /opt/Tanium/TaniumClient/tanium-init.dat
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Starting Tanium Service..
+    shell:
+         "systemctl start taniumclient.service"
+
+  - name: Enabling Tanium Service..
+    shell:
+         "systemctl enable taniumclient.service"
+
+  - name: Removing Temporary Files..
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/TaniumClient-7.4.9.1077-1.rhe8.x86_64.rpm

@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Getting Linux Config.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/GetLinuxConfig.sh

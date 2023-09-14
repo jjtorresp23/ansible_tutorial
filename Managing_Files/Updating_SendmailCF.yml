@@ -1,0 +1,23 @@
+---
+
+- name: Configuring Sendmail.cf..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading sendmail.cf
+    copy:
+      src: /home/svcans/ansible_tutorial/Managing_Files/sendmail.cf-TEMPLATE
+      dest: /etc/mail/sendmail.cf
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Starting Sendmail...
+    shell:
+         "service sendmail start; chkconfig sendmail on"
+
+  - name: Sending Test email..
+    shell:
+         "echo Testing-Email| mailx -s Test_Mail juan.torresp@livingston.com"

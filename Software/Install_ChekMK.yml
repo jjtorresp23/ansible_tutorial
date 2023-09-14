@@ -1,0 +1,25 @@
+---
+- name: Installing CheckMK...
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+  tasks:
+
+    - name: Creating CheckMk Folder...
+      shell:
+           "/usr/bin/mkdir /usr/lib/check_mk_agent"
+      args:
+        warn: false
+
+    - name: Downloading CheckMk...
+      get_url:
+        url: http://172.29.193.62/linux/check-mk-agent-2.1.0p9-1.noarch.rpm
+        dest: /usr/lib/check_mk_agent/check-mk-agent-2.1.0p9-1.noarch.rpm
+
+    - name: Installing ChekMk...
+      shell:
+           "/usr/bin/yum localinstall /usr/lib/check_mk_agent/check-mk-agent-2.1.0p9-1.noarch.rpm -y"
+      args:
+        warn: false

@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: UnInstalling SSM Agent...
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/Uninstalling_ssm-agent.sh
