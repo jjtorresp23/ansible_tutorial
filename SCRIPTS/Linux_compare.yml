@@ -1,0 +1,20 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading Linux Compare....
+    copy:
+      src: /home/svcans/ansible_tutorial/SCRIPTS/Linux_compare.sh
+      dest: /usr/bin/Linux_compare.sh
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Updating definitions...
+    shell:
+         "/usr/bin/Linux_compare.sh -b"
+    args:
+        warn: false

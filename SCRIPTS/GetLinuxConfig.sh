@@ -16,6 +16,9 @@ echo "   " >> `hostname -s`_data.out
 echo "########################### MOUNT ###########################" >> `hostname -s`_data.out
 mount >> `hostname -s`_data.out
 echo "   " >> `hostname -s`_data.out
+echo "########################### LSBLK ###########################" >> `hostname -s`_data.out
+lsblk >> `hostname -s`_data.out
+echo "   " >> `hostname -s`_data.out
 echo "########################### ifconfig ###########################" >> `hostname -s`_data.out
 ifconfig -a >> `hostname -s`_data.out
 echo "   " >> `hostname -s`_data.out

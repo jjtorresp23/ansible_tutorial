@@ -4,7 +4,7 @@
   become: yes
   tasks:
 
-  - name:  Installing the KSH package
+  - name: Installing PERL package
     ansible.builtin.yum:
-      name: ksh
+      name: perl
       state: latest
