@@ -1,0 +1,108 @@
+---
+- name: Installing MDE, Falcon...
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+  tasks:
+
+    - name: Installing needed Software...
+      ansible.builtin.yum:
+        name:
+            python3,yum-utils,net-tools,nfs-utils,lsof
+        state: latest
+
+    - name: Downloading Falcon Package...
+      copy:
+        src: /home/svcans/SW/Falcon/falcon-sensor-6.58.0-15508.el8.x86_64.rpm
+        dest: /tmp/falcon-sensor-6.58.0-15508.el8.x86_64.rpm
+
+    - name: Installing Falcon Sensor...
+      shell:
+           "yum -y install /tmp/falcon-sensor-6.58.0-15508.el8.x86_64.rpm"
+      args:
+        warn: false
+
+    - name: Setting Falcon CID...
+      shell:
+           "/opt/CrowdStrike/falconctl -s --cid=DEDD976AB61F41BB8AFF9C036213ECFD-ED"
+
+    - name: Starting Falcon Service...
+      ansible.builtin.service:
+        name: falcon-sensor
+        state: started
+
+    - name: Enabling Falcon Agent...
+      shell:
+           "/usr/bin/systemctl start falcon-sensor"
+
+    - name: Starting MDE Install, Downloading EDR File...
+      copy:
+        src: /home/svcans/SW/MDE/mde_linux_edr_diy.sh 
+        dest: /tmp/mde_linux_edr_diy.sh 
+
+    - name: Downloading Onboarding Script for MDE...
+      copy:
+        src: /home/svcans/SW/MDE/MicrosoftDefenderATPOnboardingLinuxServer.py
+        dest: /tmp/MicrosoftDefenderATPOnboardingLinuxServer.py
+
+    - name: Adding Microsoft Repository for MDE...
+      shell:
+           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/8/prod.repo"
+      args:
+        warn: false
+
+    - name: Importing Packages for MDE...
+      shell:
+           "/usr/bin/rpm --import http://packages.microsoft.com/keys/microsoft.asc"
+      args:
+        warn: false
+    
+    - name: Installing MDE ...
+      shell:
+           "/usr/bin/yum -y install mdatp"
+      args:
+        warn: false
+
+    - name: Checking MDE CID...
+      shell:
+           "/usr/bin/mdatp health --field org_id"
+      args:
+        warn: false
+
+    - name: Adding MDE CID...
+      shell:
+           "/usr/bin/python3 /tmp/MicrosoftDefenderATPOnboardingLinuxServer.py"
+      args:
+        warn: false
+
+    - name: Checking MDE CID...
+      shell:
+           "/usr/bin/mdatp health --field org_id"
+      args:
+        warn: false
+
+    - name: Checking Real Time Protection Status...
+      shell:
+           "/usr/bin/mdatp health --field healthy"
+      args:
+        warn: false
+
+    - name: Downloading eicar file for MDE Testing...
+      shell:
+           "/usr/bin/curl -o /tmp/eicar.com.txt https://www.eicar.org/download/eicar.com.txt -k"
+      args:
+        warn: false
+
+    - name: Checking for threats, MDE dummy file...
+      shell:
+           "/usr/bin/mdatp threat list"
+      args:
+        warn: false
+
+    - name: Updating definitions for MDE...
+      shell:
+           "/usr/bin/sh /tmp/mde_linux_edr_diy.sh"
+      args:
+        warn: false

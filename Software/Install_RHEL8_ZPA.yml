@@ -1,0 +1,55 @@
+---
+
+- name: Installing ZPA..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading GPG Package....
+    copy:
+      src: /home/svcans/SW/ZPA/gpg
+      dest: /tmp/gpg
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Uploading ZPA rpm Package....
+    copy:
+      src: /home/svcans/SW/ZPA/zpa-connector-23.63.1-1.el8.x86_64.rpm
+      dest: /tmp/zpa-connector-23.63.1-1.el8.x86_64.rpm
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Verifying RPM Signature...
+    shell:
+         "rpm --import /tmp/gpg"
+
+  - name: Installing ZPA...
+    shell:
+         "rpm -ivh /tmp/zpa-connector-23.63.1-1.el8.x86_64.rpm"
+
+  - name: Stopping ZPA Service...
+    shell:
+         "systemctl stop zpa-connector"
+
+  - name: Creating provisioning key....
+    copy:
+      src: /home/svcans/SW/ZPA/provision_key
+      dest: /opt/zscaler/var/provision_key
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Removing RPM Temporary Files..
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/zpa-connector-23.63.1-1.el8.x86_64.rpm
+
+  - name: Removing GPG Temporary Files..
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/gpg

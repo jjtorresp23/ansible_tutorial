@@ -1,0 +1,85 @@
+---
+- name: MDE Installation
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+  tasks:
+
+    - name: Downloading EDR File...
+      get_url:
+        url: http://172.29.193.62/linux/mde_linux_edr_diy.sh 
+        dest: /tmp/mde_linux_edr_diy.sh 
+
+    - name: Downloading Onboarding Script...
+      get_url:
+        url: http://172.29.193.62/linux/MicrosoftDefenderATPOnboardingLinuxServer.py
+        dest: /tmp/MicrosoftDefenderATPOnboardingLinuxServer.py
+
+    - name: Adding Microsoft Repository...
+      shell:
+           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/8/prod.repo"
+#           "/usr/bin/yum-config-manager --add-repo=https://packages.microsoft.com/config/rhel/9/prod.repo"
+      args:
+        warn: false
+
+    - name: Importing Packages...
+      shell:
+           "/usr/bin/rpm --import http://packages.microsoft.com/keys/microsoft.asc"
+      args:
+        warn: false
+
+    - name: Installing MDE ...
+      shell:
+           "/usr/bin/yum -y install mdatp"
+      args:
+        warn: false
+
+    - name: Checking CID...
+      shell:
+           "/usr/bin/mdatp health --field org_id"
+      args:
+        warn: false
+
+    - name: Adding CID...
+      shell:
+           "/usr/bin/python3 /tmp/MicrosoftDefenderATPOnboardingLinuxServer.py"
+      args:
+        warn: false
+
+    - name: Checking CID...
+      shell:
+           "/usr/bin/mdatp health --field org_id"
+      args:
+        warn: false
+
+    - name: Checking Real Time Protection Status...
+      shell:
+           "/usr/bin/mdatp health --field healthy"
+      args:
+        warn: false
+
+    - name: Enabling Real Time Protection...
+      shell:
+           "/usr/bin/mdatp --field real_time_protection_enabled"
+      args:
+        warn: false
+
+    - name: Downloading eicar file...
+      shell:
+           "/usr/bin/curl -o /tmp/eicar.com.txt https://www.eicar.org/download/eicar.com.txt -k"
+      args:
+        warn: false
+
+    - name: Checking for threats...
+      shell:
+           "/usr/bin/mdatp threat list"
+      args:
+        warn: false
+
+    - name: Updating definitions...
+      shell:
+           "/usr/bin/sh /tmp/mde_linux_edr_diy.sh"
+      args:
+        warn: false

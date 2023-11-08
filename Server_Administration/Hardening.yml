@@ -1,0 +1,58 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Changing Root password...
+      user:
+        name: root
+        password: "$6$aic9q8/98t.xu3oS$FjFknEljczqFyJEI6uUJmbZXxgRlpnrPIOp4Zgl30TG52EgN1uZ7FoRNqA62FZ0pT09H7v.rWax9456MPVAsk0"
+
+    - name: Subscribing to RHEL.. 
+      ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/Subscribe2RHEL.sh
+
+    - name:  Installing the CHRONY package
+      ansible.builtin.yum:
+        name: chrony
+        state: latest
+
+    - name: Starting Chrony...
+      shell:
+           "/usr/bin/systemctl start chronyd"
+
+    - name: Enabling Chrony...
+      shell:
+           "/usr/bin/systemctl enable chronyd"
+
+    - name: Taking Backup for chrony.conf...
+      shell:
+           "/usr/bin/cp /etc/chrony.conf /etc/chrony.confOLD"
+
+    - name: Uploading NEW /etc/chrony.conf...
+      template:
+        src: /home/svcans/Config_Files/chronyTR2.conf
+        dest: /etc/chrony.conf
+        owner: root
+        group: root
+        mode: 0644
+        remote_src: false
+
+    - name: Restarting Chrony...
+      shell:
+           "/usr/bin/systemctl restart chronyd"
+
+    - name: Disable Root SSH Logins
+      lineinfile:
+            dest: /etc/ssh/sshd_config
+            regexp: '^PermitRootLogin'
+            line: "PermitRootLogin no"
+            state: present
+            backup: yes
+      notify:
+        - restart ssh
+
+  handlers:
+  - name: restart ssh
+    service:
+      name: sshd
+      state: restarted        

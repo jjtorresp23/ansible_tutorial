@@ -1,0 +1,35 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name:  Installing the CHRONY package
+    ansible.builtin.yum:
+      name: chrony
+      state: latest
+
+  - name: Starting Chrony...
+    shell:
+         "/usr/bin/systemctl start chronyd"
+
+  - name: Enabling Chrony...
+    shell:
+         "/usr/bin/systemctl enable chronyd"
+
+  - name: Taking Backup for chrony.conf...
+    shell:
+         "/usr/bin/cp /etc/chrony.conf /etc/chrony.confOLD"
+
+  - name: Uploading NEW /etc/chrony.conf...
+    template:
+      src: /home/svcans/Config_Files/chronyTR2.conf
+      dest: /etc/chrony.conf
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Restarting Chrony...
+    shell:
+         "/usr/bin/systemctl restart chronyd"
