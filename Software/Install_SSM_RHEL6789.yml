@@ -24,7 +24,7 @@
 
   - name: Registeiring Instance on SSM Console...
     shell:
-         "eccho 'yes' |sudo -E amazon-ssm-agent -register -code '1GlCA0yeA0/L9xEvngf5' -id 'aaf14bac-9334-41d6-a8f1-e3e4bb46c9d1' -region 'us-east-1'"
+         "echo 'yes' |sudo -E amazon-ssm-agent -register -code 'jtIlVtR5WgGPbDTvCPE0' -id '98f6d233-7733-4b82-a76a-831737e3ce94' -region 'us-east-1'"
 
   - name: Starting SSM...
     shell:

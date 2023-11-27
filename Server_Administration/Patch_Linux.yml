@@ -1,0 +1,11 @@
+---
+
+- hosts: all
+  become: yes
+
+  tasks:
+
+    - name: Install system updates for rhel/centos systems
+      yum:
+        name: '*'
+        state: latest

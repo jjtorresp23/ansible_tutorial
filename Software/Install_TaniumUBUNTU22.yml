@@ -33,7 +33,7 @@
 
   - name: Enabling Tanium Service..
     shell:
-         "update-rc.d taniumclient defaults"
+         "systemctl enable taniumclient"
 
   - name: Removing Temporary Files..
     ansible.builtin.file:

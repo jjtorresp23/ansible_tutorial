@@ -1,0 +1,18 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading NEW /etc/chrony.conf...
+    template:
+      src: /home/svcans/Config_Files/chronyTR2.conf
+      dest: /etc/chrony.conf
+      owner: root
+      group: root
+      mode: 0644
+      remote_src: false
+
+  - name: Restarting Chrony...
+    shell:
+         "/usr/bin/systemctl restart chronyd"
