@@ -1,0 +1,43 @@
+---
+- name: Installing CSW Agent
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+  tasks:
+
+    - name: Installing Prerequisites for CSW...
+      ansible.builtin.yum:
+        name:
+            unzip,lsof,iptables-utils
+        state: latest
+
+    - name: Uploading CSW Script...
+      copy:
+        src: /home/svcans/SW/CSW/tetration_installer_livingstonpov_enforcer_linux_tes.sh
+        dest: /tmp/tetration_installer_livingstonpov_enforcer_linux_tes.sh
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: false
+
+    - name: Executing CSW Script...
+      shell:
+           "bash /tmp/tetration_installer_livingstonpov_enforcer_linux_tes.sh"
+      args:
+        warn: false
+
+    - name: Starting Service...
+      ansible.builtin.service:
+        name: csw-agent
+        state: started
+
+    - name: Enabling Agent...
+      shell:
+           "/usr/bin/systemctl enable csw-agent"
+
+    - name: Removing Temporary Files..
+      ansible.builtin.file:
+        state: absent
+        path: /tmp/tetration_installer_livingstonpov_enforcer_linux_tes.sh

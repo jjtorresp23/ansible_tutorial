@@ -1,0 +1,19 @@
+---
+
+- name: Remediating Terrapin CVE-2023-48795
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Creating sub-policy...
+    copy:
+      src: /home/svcans/ansible_tutorial/VulRem/CVE-2023-48795.pmod
+      dest: /etc/crypto-policies/policies/modules/CVE-2023-48795.pmod
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Applying sub-policy..
+    shell:
+         "update-crypto-policies --set $(update-crypto-policies --show):CVE-2023-48795"

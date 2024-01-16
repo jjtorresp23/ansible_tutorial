@@ -1,0 +1,19 @@
+---
+
+- name: Remediating Cypher CBC
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Creating sub-policy...
+    copy:
+      src: /home/svcans/ansible_tutorial/VulRem/DISABLE-CBC.pmod
+      dest: /etc/crypto-policies/policies/modules/DISABLE-CBC.pmod
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Applying sub-policy..
+    shell:
+         "update-crypto-policies --set DEFAULT:DISABLE-CBC"

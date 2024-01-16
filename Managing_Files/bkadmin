@@ -1,0 +1,2 @@
+beto.toscuento ALL=(root) NOPASSWD: /usr/bin/su - bkadmin
+bkadmin    ALL=(ALL)       NOPASSWD: ALL

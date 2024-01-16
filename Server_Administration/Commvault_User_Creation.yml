@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Creating bkadmin user for Commvault
+      user:
+        name: bkadmin
+        comment: CommVaul_Account_Resp.Beto_Toscuento
+        uid: 10000
+        password: "$6$fhUxaPT3GtidDaSN$zEHBiQmuRu57FNJj3KLzWgunDCMX8V7G17HN7M/glpliS1cLfViERzQ.8TJmpOj76Uijv1UCpqSSvSsDUEZEp/"
+        state: present  # Ensure the user is present
+        createhome: yes  # Create the user's home directory
+    
+    - name: Uploading bkadmin sudoers file
+      copy:
+        src: /home/svcans/ansible_tutorial/Managing_Files/bkadmin
+        dest: /etc/sudoers.d/bkadmin
+        owner: root
+        group: root
+        mode: 0440
+        remote_src: false
