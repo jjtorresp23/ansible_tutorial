@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Remediating Cipher and Terrapin Vulnerabilities...
+    ansible.builtin.script: /home/svcans/ansible_tutorial/VulRem/Cipher-Terrapin_Remediation_RHEL7.sh

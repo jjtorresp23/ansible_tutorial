@@ -13,6 +13,16 @@
       notify:
         - restart ssh
 
+    - name: Enable Kerberos Auth
+      lineinfile:
+            dest: /etc/ssh/sshd_config
+            regexp: '^KerberosAuthentication'
+            line: "KerberosAuthentication yes"
+            state: present
+            backup: yes
+      notify:
+        - restart ssh
+
   handlers:
   - name: restart ssh
     service:

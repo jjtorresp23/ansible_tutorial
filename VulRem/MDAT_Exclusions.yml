@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Creating MDE exclusions.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/VulRem/MDAT_Exclusions.sh

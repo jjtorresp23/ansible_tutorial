@@ -1,0 +1,13 @@
+mdatp exclusion process add --name TaniumClient
+mdatp exclusion process add --name TPython
+mdatp exclusion process add --name pybin
+mdatp exclusion process add --name TaniumCX
+mdatp exclusion process add --name rman
+mdatp exclusion process add --name cvlaunchd
+mdatp exclusion process add --name cvd
+mdatp exclusion process add --name ClMgrS
+mdatp exclusion process add --name cvfwd
+mdatp exclusion process add --name galaxy_vm
+mdatp exclusion extension add --name .dbf
+mdatp exclusion extension add --name .log
+mdatp exclusion extension add --name .ctl

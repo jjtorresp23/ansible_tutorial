@@ -1,0 +1,12 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Disabling selinux...
+      lineinfile:
+            dest: /etc/selinux/config
+            regexp: '^SELINUX='
+            line: "SELINUX=disabled"
+            state: present
+            backup: yes

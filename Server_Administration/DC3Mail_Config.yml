@@ -1,0 +1,13 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+    - name: Enable Mail...
+      lineinfile:
+            dest: /etc/mail/sendmail.cf
+            regexp: '^DS'
+            line: "DSdc3mail.lii01.livun.com"
+            state: present
+            backup: yes
