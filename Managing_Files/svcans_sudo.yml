@@ -1,0 +1,15 @@
+---
+
+- name: svcans SUDO
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading /etc/sudoers.d/svcans
+    copy:
+      src: /home/svcans/ansible_tutorial/Managing_Files/svcans
+      dest: /etc/sudoers.d/svcans
+      owner: root
+      group: root
+      mode: 0440
+      remote_src: false

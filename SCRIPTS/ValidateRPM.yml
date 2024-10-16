@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Validate RPMs.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/ValRPMs.sh

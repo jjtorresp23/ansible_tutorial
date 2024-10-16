@@ -1,0 +1,40 @@
+---
+- name: Falcon Sensor Installation
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  tasks:
+
+    - name: Copying Falcon sensor to the server...
+      copy:
+        src: /home/svcans/SW/Falcon/falcon-sensor-6.58.0-15508.el9.x86_64.rpm
+        dest: /tmp/falcon-sensor-6.58.0-15508.el9.x86_64.rpm
+        owner: root
+        group: root
+        mode: 0755
+        remote_src: false
+
+    - name: Installing Falcon Sensor...
+      shell:
+           "yum -y install /tmp/falcon-sensor-6.58.0-15508.el9.x86_64.rpm"
+      args:
+        warn: false
+
+    - name: Setting CID...
+      shell:
+           "/opt/CrowdStrike/falconctl -s --cid=DEDD976AB61F41BB8AFF9C036213ECFD-ED"
+
+    - name: Starting Service...
+      ansible.builtin.service:
+        name: falcon-sensor
+        state: started
+
+    - name: Starting Service Second Attempt...
+      shell:
+           "/usr/bin/systemctl start falcon-sensor"
+
+    - name: Removing Temporary Files..
+      ansible.builtin.file:
+        state: absent
+        path: /tmp/falcon-sensor-6.58.0-15508.el9.x86_64.rpm

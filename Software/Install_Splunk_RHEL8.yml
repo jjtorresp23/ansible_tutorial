@@ -1,0 +1,41 @@
+---
+
+- name: Installing Splunk..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Removing Old Splunk Configs..
+    ansible.builtin.user:
+     name: splunk
+     state: absent
+     remove: yes
+
+  - name: Removing Old Splunkfwd Configs..
+    ansible.builtin.user:
+     name: splunkfwd
+     state: absent
+     remove: yes
+
+  - name: Recursively removing Old splunk directory..
+    ansible.builtin.file:
+     path: /opt/splunkforwarder
+     state: absent
+
+  - name: Uploading Splunk Package....
+    copy:
+      src: /home/svcans/SW/Splunk/splunkforwarder-9.2.0.1-d8ae995bf219.x86_64.rpm
+      dest: /tmp/splunkforwarder-9.2.0.1-d8ae995bf219.x86_64.rpm
+      owner: root
+      group: root
+      mode: 0755
+      remote_src: false
+
+  - name: Installing Splunk Forwarder...
+    shell:
+         "yum install -y /tmp/splunkforwarder-9.2.0.1-d8ae995bf219.x86_64.rpm"
+
+  - name: Removing Temporary Files..
+    ansible.builtin.file:
+      state: absent
+      path: /tmp/splunkforwarder-9.2.0.1-d8ae995bf219.x86_64.rpm

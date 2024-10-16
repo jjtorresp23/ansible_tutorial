@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Uninstalling SoftWare Base... 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/GTM_OS_Upgrade_Uninstall_SoftWare_Base.sh

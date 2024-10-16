@@ -4,5 +4,5 @@
   become: yes
   tasks:
 
-  - name: Subscribing to RHEL.. 
+  - name: UnSubscribing to RHEL.. 
     ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/UnSubscribe2RHEL.sh

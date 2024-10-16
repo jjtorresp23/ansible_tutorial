@@ -1,0 +1,15 @@
+---
+
+- name: SUDO temp permissions for Bob..
+  hosts: all
+  become: yes
+  tasks:
+
+  - name: Uploading /etc/sudoers.d/tempper
+    copy:
+      src: /home/svcans/ansible_tutorial/Managing_Files/tempper
+      dest: /etc/sudoers.d/tempper
+      owner: root
+      group: root
+      mode: 0440
+      remote_src: false

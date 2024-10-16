@@ -1,0 +1,8 @@
+dba_isaavedra    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst1
+dba_isaavedra    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst2
+dba_isaavedra    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst3
+dba_isaavedra    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst4
+bchong    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst1
+bchong    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst2
+bchong    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst3
+bchong    ALL=(ALL) NOPASSWD: /usr/bin/su - db2inst4

@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Removing Unwanted Users and Sudo permissions...
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/Removing_Unwanted_Sudo_and_Users.sh

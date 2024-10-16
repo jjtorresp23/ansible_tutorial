@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Leaving Servers from AD lii01-livun.com.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/join_to_domain.sh

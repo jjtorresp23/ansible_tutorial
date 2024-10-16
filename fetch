@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Getting Config Snapshot file to local
+    fetch: 
+      src: /home/svcans/file
+      dest: /home/svcans/SnapShots/

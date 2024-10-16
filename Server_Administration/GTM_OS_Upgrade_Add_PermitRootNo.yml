@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Adding Permit root login yes to sshd config file.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/GTM_OS_Upgrade_Add_PermitRootNo.sh

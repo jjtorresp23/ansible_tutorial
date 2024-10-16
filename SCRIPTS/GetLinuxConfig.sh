@@ -58,5 +58,9 @@ echo "   " >> snapshot_`hostname -s`_$datee.out
 echo "########################### DMIDECODE ###########################" >> snapshot_`hostname -s`_$datee.out
 dmidecode --type=1 >> snapshot_`hostname -s`_$datee.out
 echo "   " >> snapshot_`hostname -s`_$datee.out
+echo "########################### IPTABLES -L output ###########################" >> snapshot_`hostname -s`_$datee.out
+iptables -L >> snapshot_`hostname -s`_$datee.out
+echo "   " >> snapshot_`hostname -s`_$datee.out
 echo "--------------------    EOF    --------------------" >> snapshot_`hostname -s`_$datee.out
+cat snapshot_`hostname -s`_$datee.out > Configuration
 exit

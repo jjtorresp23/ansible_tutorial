@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Subscribing to RHEL.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/join_to_domain.sh

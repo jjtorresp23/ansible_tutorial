@@ -1,0 +1,17 @@
+---
+- name: Setting up DBA Permissions on DB2 Servers Content Manager
+  hosts: all
+  become: yes
+  become_user: root
+  become_method: sudo
+  vars:
+  tasks:
+
+    - name: Uploading sudoers file...
+      copy:
+        src: /home/svcans/ansible_tutorial/Managing_Files/dba-team
+        dest: /etc/sudoers.d/dba-team
+        owner: root
+        group: root
+        mode: 0440
+        remote_src: false

@@ -1,0 +1,2 @@
+svcans ALL=(ALL) NOPASSWD: ALL
+Defaults:svcans  !requiretty

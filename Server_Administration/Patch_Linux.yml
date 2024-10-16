@@ -5,7 +5,7 @@
 
   tasks:
 
-    - name: Install system updates for rhel/centos systems
+    - name: Installing system updates for rhel systems
       yum:
         name: '*'
         state: latest

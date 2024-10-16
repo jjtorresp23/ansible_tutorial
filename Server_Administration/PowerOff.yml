@@ -4,7 +4,7 @@
   become: yes
   tasks:
           
-  - name: Reboot the machine
+  - name: Powering Off Server(s).
     shell: "sleep 2 && poweroff"
 
     async: 1

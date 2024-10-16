@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Installing leap.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/GTM_OS_Upgrade_Install_leap.sh

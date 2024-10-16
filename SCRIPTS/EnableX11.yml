@@ -1,0 +1,8 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+
+  - name: Enabling X11.. 
+    ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/enablingx11.sh

@@ -1,0 +1,33 @@
+---
+
+- hosts: all
+  become: yes
+  tasks:
+    - name: Setting root password..
+      user:
+        name: root
+        password: "$6$al2uIlux$PCGKJm4/iktLCjVVDkxNqvr8msLEx0/43/qN.cYmDbZXa/0ekgkutDp4UOdm9LzCVwACnZ0Kf0nNuoRopEfC.."
+    
+    - name: Setting sysop password..  
+      user:
+        name: sysop
+        password: "$6$HxFoz8us$64u6QORqrZzevFRsgRAMnZxC2WmmGjiBIXioE98JOTx5z2enB0wk4YyGuVb9ocLvYvollIAGgM70aWqKyXiEO/"
+
+    - name: Getting Linux Current Config.. 
+      ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/GetLinuxConfig.sh
+
+    - name: Fetching Linux Current Config Output to local.. 
+      fetch:
+       src: /home/svcans/Configuration
+       dest: /home/svcans/SnapShots/
+
+    - name: Subscribing to RHEL.. 
+      ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/Subscribe2RHEL.sh
+
+    - name: Installing Updates/Patches on the systems..
+      yum:
+        name: '*'
+        state: latest
+    
+    - name: UnSubscribing from RHEL.. 
+      ansible.builtin.script: /home/svcans/ansible_tutorial/SCRIPTS/UnSubscribe2RHEL.sh
